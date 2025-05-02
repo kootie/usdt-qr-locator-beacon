@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import BusinessListing from "./pages/BusinessListing";
 import BusinessDetail from "./pages/BusinessDetail";
 import BusinessRegistration from "./pages/BusinessRegistration";
+import NearMe from "./pages/NearMe";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/businesses" element={<BusinessListing />} />
             <Route path="/business/:id" element={<BusinessDetail />} />
             <Route path="/register" element={<BusinessRegistration />} />
+            <Route path="/near-me" element={<NearMe />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

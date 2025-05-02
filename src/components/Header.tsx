@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { MapPin, Plus, List, QrCode } from 'lucide-react';
+import { MapPin, Plus, List, QrCode, Navigation } from 'lucide-react';
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -26,6 +26,17 @@ const Header: React.FC = () => {
             >
               <MapPin className="h-4 w-4 mr-1" />
               <span>Map</span>
+            </Button>
+          </Link>
+          
+          <Link to="/near-me">
+            <Button 
+              variant={location.pathname === '/near-me' ? 'default' : 'ghost'}
+              className="flex items-center"
+              size="sm"
+            >
+              <Navigation className="h-4 w-4 mr-1" />
+              <span>Near Me</span>
             </Button>
           </Link>
           

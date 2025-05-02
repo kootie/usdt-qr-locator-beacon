@@ -4,19 +4,23 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useBusinessContext } from '@/contexts/BusinessContext';
 import { useNavigate } from 'react-router-dom';
+import { Business } from '@/types/business';
 
 interface MapProps {
   mapboxToken?: string;
+  userLocation?: { lat: number; lng: number } | null;
+  highlightedBusinesses?: Business[];
 }
 
-const Map: React.FC<MapProps> = ({ mapboxToken }) => {
+const Map: React.FC<MapProps> = ({ mapboxToken, userLocation, highlightedBusinesses }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [token, setToken] = useState<string>(mapboxToken || '');
   const [tokenInput, setTokenInput] = useState<string>('');
   const { businesses } = useBusinessContext();
   const navigate = useNavigate();
-
+  const businessesToDisplay = highlightedBusinesses || businesses;
+  
   useEffect(() => {
     if (!token || !mapContainer.current || map.current) return;
 
@@ -42,23 +46,50 @@ const Map: React.FC<MapProps> = ({ mapboxToken }) => {
     };
   }, [token]);
 
-  // Add markers for businesses
+  // Add markers for businesses and handle user location changes
   useEffect(() => {
-    if (!map.current || businesses.length === 0) return;
+    if (!map.current || businessesToDisplay.length === 0) return;
     
     // Remove existing markers
     const markers = document.querySelectorAll('.mapboxgl-marker');
     markers.forEach((marker) => marker.remove());
 
+    // If we have user location, center map and add user marker
+    if (userLocation) {
+      map.current.flyTo({
+        center: [userLocation.lng, userLocation.lat],
+        zoom: 11,
+        essential: true
+      });
+      
+      // Add user marker
+      const userEl = document.createElement('div');
+      userEl.className = 'custom-marker';
+      userEl.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white shadow-lg flex items-center justify-center">
+          <div class="w-4 h-4 rounded-full bg-white animate-pulse"></div>
+        </div>
+      `;
+      
+      new mapboxgl.Marker(userEl)
+        .setLngLat([userLocation.lng, userLocation.lat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML('<p class="font-medium">Your Location</p>'))
+        .addTo(map.current);
+    }
+
     // Add markers for each business
-    businesses.forEach((business) => {
+    businessesToDisplay.forEach((business) => {
       // Create custom marker element
       const el = document.createElement('div');
       el.className = 'cursor-pointer';
+      
+      // Use different styles for highlighted businesses
+      const isHighlighted = highlightedBusinesses && highlightedBusinesses.some(b => b.id === business.id);
+      
       el.innerHTML = `
         <div class="relative group">
-          <div class="w-8 h-8 rounded-full bg-tether flex items-center justify-center text-white shadow-md transform transition-transform group-hover:scale-110">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-pulse-slow">
+          <div class="w-8 h-8 rounded-full ${isHighlighted ? 'bg-tether scale-110 shadow-lg' : 'bg-tether'} flex items-center justify-center text-white shadow-md transform transition-transform group-hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="${isHighlighted ? 'animate-pulse' : ''}">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
               <circle cx="12" cy="10" r="3"></circle>
             </svg>
@@ -79,7 +110,7 @@ const Map: React.FC<MapProps> = ({ mapboxToken }) => {
         navigate(`/business/${business.id}`);
       });
     });
-  }, [businesses, navigate, map.current]);
+  }, [businessesToDisplay, navigate, userLocation, map.current, highlightedBusinesses]);
 
   const handleTokenSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -133,7 +164,7 @@ const Map: React.FC<MapProps> = ({ mapboxToken }) => {
   }
 
   return (
-    <div className="relative w-full h-[70vh] rounded-lg overflow-hidden shadow-lg">
+    <div className="relative w-full h-full rounded-lg overflow-hidden">
       <div ref={mapContainer} className="absolute inset-0" />
     </div>
   );
