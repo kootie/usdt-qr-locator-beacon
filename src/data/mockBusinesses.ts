@@ -13,7 +13,33 @@ export const mockBusinesses: Business[] = [
     upvotes: 25,
     downvotes: 2,
     createdAt: '2023-01-01T00:00:00.000Z',
-    updatedAt: '2023-01-10T00:00:00.000Z'
+    updatedAt: '2023-01-10T00:00:00.000Z',
+    products: [
+      {
+        id: '101',
+        businessId: '1',
+        name: 'Cold Brew Coffee',
+        description: 'Smooth cold brew coffee made with specialty beans.',
+        price: 5.99,
+        currency: 'USDT',
+        imageUrl: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735',
+        inStock: true,
+        createdAt: '2023-01-05T00:00:00.000Z',
+        updatedAt: '2023-01-05T00:00:00.000Z',
+      },
+      {
+        id: '102',
+        businessId: '1',
+        name: 'Blueberry Muffin',
+        description: 'Fresh baked muffin with organic blueberries.',
+        price: 3.99,
+        currency: 'USDT',
+        imageUrl: 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa',
+        inStock: true,
+        createdAt: '2023-01-05T00:00:00.000Z',
+        updatedAt: '2023-01-05T00:00:00.000Z',
+      },
+    ]
   },
   {
     id: '2',
@@ -26,7 +52,33 @@ export const mockBusinesses: Business[] = [
     upvotes: 15,
     downvotes: 5,
     createdAt: '2023-02-01T00:00:00.000Z',
-    updatedAt: '2023-02-15T00:00:00.000Z'
+    updatedAt: '2023-02-15T00:00:00.000Z',
+    products: [
+      {
+        id: '201',
+        businessId: '2',
+        name: 'Crypto Hardware Wallet',
+        description: 'Secure hardware wallet for your cryptocurrencies.',
+        price: 79.99,
+        currency: 'USDT',
+        imageUrl: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247',
+        inStock: true,
+        createdAt: '2023-02-05T00:00:00.000Z',
+        updatedAt: '2023-02-05T00:00:00.000Z',
+      },
+      {
+        id: '202',
+        businessId: '2',
+        name: 'Blockchain T-Shirt',
+        description: 'Stylish t-shirt with blockchain design.',
+        price: 24.99,
+        currency: 'USDC',
+        imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab',
+        inStock: true,
+        createdAt: '2023-02-08T00:00:00.000Z',
+        updatedAt: '2023-02-08T00:00:00.000Z',
+      },
+    ]
   },
   {
     id: '3',
@@ -39,6 +91,20 @@ export const mockBusinesses: Business[] = [
     upvotes: 40,
     downvotes: 8,
     createdAt: '2023-03-01T00:00:00.000Z',
-    updatedAt: '2023-03-20T00:00:00.000Z'
+    updatedAt: '2023-03-20T00:00:00.000Z',
+    products: [
+      {
+        id: '301',
+        businessId: '3',
+        name: 'Crypto Energy Drink',
+        description: 'Get energized with our special crypto blend.',
+        price: 2.99,
+        currency: 'USDT',
+        imageUrl: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e',
+        inStock: true,
+        createdAt: '2023-03-10T00:00:00.000Z',
+        updatedAt: '2023-03-10T00:00:00.000Z',
+      }
+    ]
   }
 ];
