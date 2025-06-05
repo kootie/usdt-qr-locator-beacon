@@ -13,7 +13,7 @@ const Header: React.FC = () => {
         <div className="flex items-center mb-4 md:mb-0">
           <Link to="/" className="flex items-center">
             <QrCode className="h-8 w-8 text-tether mr-2" />
-            <span className="text-xl font-bold">USDT QR Beacon</span>
+            <span className="text-xl font-bold">Cypher</span>
           </Link>
         </div>
         
