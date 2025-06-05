@@ -8,9 +8,9 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
-            <h3 className="text-lg font-bold mb-2">USDT QR Beacon</h3>
+            <h3 className="text-lg font-bold mb-2">Cypher</h3>
             <p className="text-sm text-gray-300">
-              Find businesses accepting USDT payments globally.
+              Find businesses accepting USDT and USDC payments globally.
             </p>
           </div>
           
@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className="mt-6 text-center text-xs text-gray-400">
-          <p>© {new Date().getFullYear()} USDT QR Beacon. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Cypher. All rights reserved.</p>
           <p className="mt-1">Not affiliated with Tether or any cryptocurrency company.</p>
         </div>
       </div>
